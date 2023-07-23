@@ -2,7 +2,7 @@ import { randomBytes } from 'crypto'
 import { createAuth } from '@keystone-6/auth'
 import { statelessSessions } from '@keystone-6/core/session'
 
-let sessionSecret = process.env.SESSION_SECRET
+let sessionSecret = process.env.KS_SESSION_SECRET
 if (sessionSecret === undefined) {
   sessionSecret = randomBytes(32).toString('hex')
 }
