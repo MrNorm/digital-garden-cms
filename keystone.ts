@@ -8,7 +8,7 @@ export default withAuth(
     db: {
       provider: process.env.KS_DB_PROVIDER as DatabaseProvider ?? 'sqlite',
       url: process.env.KS_DB_URL ?? 'file:./keystone.db',
-      useMigrations: true
+      useMigrations: !!(process.env.KS_USE_DB_MIGRATIONS !== undefined)
     },
     lists,
     session,
