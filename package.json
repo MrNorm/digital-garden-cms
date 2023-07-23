@@ -1,0 +1,26 @@
+{
+  "name": "keystone-app",
+  "version": "1.0.2",
+  "private": true,
+  "scripts": {
+    "dev": "keystone dev",
+    "start": "keystone start",
+    "build": "keystone build",
+    "postinstall": "keystone build --no-ui --frozen"
+  },
+  "dependencies": {
+    "@keystone-6/auth": "^7.0.0",
+    "@keystone-6/core": "^5.0.0",
+    "@keystone-6/fields-document": "^7.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "eslint": "^8.45.0",
+    "eslint-config-standard-with-typescript": "^37.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.0",
+    "typescript": "^5.1.6"
+  }
+}
