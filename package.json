@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "keystone dev",
     "start": "keystone start",
-    "build": "keystone build && keystone prisma migrate deploy",
+    "build": "keystone build",
     "postinstall": "keystone build --no-ui --frozen"
   },
   "dependencies": {
