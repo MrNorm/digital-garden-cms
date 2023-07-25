@@ -13,6 +13,8 @@ FROM base as runtime
 
 ENV NODE_ENV=production
 ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
+ARG SERVER_URL
+ENV SERVER_URL ${SERVER_URL}
 
 WORKDIR /home/node/app
 COPY package*.json  ./

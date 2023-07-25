@@ -1,5 +1,5 @@
 #
-name: Create and publish a Docker image
+name: Create and publish a Docker image for production
 
 on: push
 
@@ -14,6 +14,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: production
     permissions:
       contents: read
       packages: write
