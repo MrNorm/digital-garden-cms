@@ -51,4 +51,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            "SERVER_URL=${{ secrets.SERVER_URL }}"
+            "SERVER_URL=${{ vars.SERVER_URL }}"
