@@ -1,48 +1,26 @@
-#syntax=docker/dockerfile:1.4
-FROM node:18-alpine AS base
-ENV KS_DB_PROVIDER postgresql
+FROM node:18.8-alpine as base
 
-# Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
+FROM base as builder
 
-# Install dependencies based on the preferred package manager
-COPY --link  . .
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+WORKDIR /home/node/app
+COPY package*.json ./
 
-
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps --link /app/node_modules ./node_modules
-COPY --link  . .
-
+COPY . .
+RUN npm install
 RUN npm run build
 
-# Production image, copy all the files and run next
-FROM base AS runner
-WORKDIR /app
+FROM base as runtime
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
+ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
 
-RUN \
-  addgroup --system --gid 1001 nodejs; \
-  adduser --system --uid 1001 keystonejs
+WORKDIR /home/node/app
+COPY package*.json  ./
 
-COPY --from=builder --link /app/ ./
-
-USER keystonejs
+RUN npm install --production
+COPY --from=builder /home/node/app/dist ./dist
+COPY --from=builder /home/node/app/build ./build
 
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME localhost
-
-CMD ["npm", "start", "--with-migrations"]
+CMD ["node", "dist/server.js"]
