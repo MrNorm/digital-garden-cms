@@ -35,7 +35,8 @@ RUN \
   addgroup --system --gid 1001 nodejs; \
   adduser --system --uid 1001 keystonejs
 
-COPY --from=builder --link /app/ ./
+COPY --from=deps --link /app/node_modules ./node_modules
+COPY --link  . .
 
 USER keystonejs
 
