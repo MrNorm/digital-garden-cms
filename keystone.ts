@@ -6,9 +6,9 @@ import type { DatabaseProvider } from '@keystone-6/core/types'
 export default withAuth(
   config({
     db: {
-      provider: process.env.KS_DB_PROVIDER as DatabaseProvider ?? 'sqlite',
-      url: process.env.KS_DB_URL ?? 'file:./keystone.db',
-      useMigrations: !!(process.env.KS_USE_DB_MIGRATIONS !== undefined)
+      provider: process.env.DATABASE_PROVIDER as DatabaseProvider ?? 'postgresql',
+      url: process.env.DATABASE_URL ?? '',
+      useMigrations: true
     },
     lists,
     session,
