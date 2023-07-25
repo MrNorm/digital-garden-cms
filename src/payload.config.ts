@@ -7,7 +7,7 @@ import Users from './collections/Users'
 import Media from './collections/Media'
 
 export default buildConfig({
-  serverURL: process.env.SERVER_URL ?? 'http://localhost:3000',
+  serverURL: process.env.SERVER_URL,
   admin: {
     user: Users.slug
   },
