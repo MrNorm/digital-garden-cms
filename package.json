@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "keystone dev",
     "start": "keystone start --with-migrations",
+    "startProd": "keystone build && keystone start --with-migrations",
     "build": "keystone build",
     "postinstall": "keystone build --no-ui --frozen"
   },

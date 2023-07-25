@@ -17,13 +17,13 @@ RUN \
   fi
 
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps --link /app/node_modules ./node_modules
-COPY --link  . .
+# # Rebuild the source code only when needed
+# FROM base AS builder
+# WORKDIR /app
+# COPY --from=deps --link /app/node_modules ./node_modules
+# COPY --link  . .
 
-RUN npm run build
+# RUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -44,4 +44,4 @@ EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME localhost
 
-CMD ["npm", "start"]
+CMD ["npm", "startProd"]
