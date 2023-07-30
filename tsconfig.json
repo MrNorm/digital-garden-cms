@@ -10,6 +10,7 @@
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "strictNullChecks": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "jsx": "react",
