@@ -1,9 +1,10 @@
+import { type User } from 'payload/generated-types'
 import { type CollectionConfig } from 'payload/types'
 
-const Posts: CollectionConfig = {
-  slug: 'posts',
+const Cuttings: CollectionConfig = {
+  slug: 'cuttings',
   admin: {
-    defaultColumns: ['title', 'author', 'category', 'tags', 'status'],
+    defaultColumns: ['title', 'author', 'category', 'tags', 'media', 'type', 'status'],
     useAsTitle: 'title'
   },
   access: {
@@ -17,11 +18,13 @@ const Posts: CollectionConfig = {
     {
       name: 'author',
       type: 'relationship',
-      relationTo: 'users'
+      relationTo: 'users',
+      defaultValue: ({ user }: { user: User }) => user.id
     },
     {
       name: 'publishedDate',
-      type: 'date'
+      type: 'date',
+      defaultValue: new Date().toString()
     },
     {
       name: 'category',
@@ -35,8 +38,38 @@ const Posts: CollectionConfig = {
       hasMany: true
     },
     {
+      name: 'images',
+      type: 'array',
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media'
+        }
+
+      ]
+    },
+    {
       name: 'content',
       type: 'richText'
+    },
+    {
+      name: 'type',
+      type: 'select',
+      options: [
+        {
+          value: 'photos',
+          label: 'Photos'
+        },
+        {
+          value: 'text',
+          label: 'Text'
+        }
+      ],
+      defaultValue: 'photos',
+      admin: {
+        position: 'sidebar'
+      }
     },
     {
       name: 'status',
@@ -59,4 +92,4 @@ const Posts: CollectionConfig = {
   ]
 }
 
-export default Posts
+export default Cuttings

@@ -1,7 +1,9 @@
 import express from 'express'
 import payload from 'payload'
+import dotenv from 'dotenv'
 
-require('dotenv').config()
+dotenv.config()
+
 const app = express()
 
 // Redirect root to Admin panel
@@ -9,11 +11,11 @@ app.get('/', (_, res) => {
   res.redirect('/admin')
 })
 
-const start = async () => {
+const start = async (): Promise<void> => {
   // Initialize Payload
   await payload.init({
-    secret: process.env.PAYLOAD_SECRET,
-    mongoURL: process.env.MONGODB_URI,
+    secret: process.env.PAYLOAD_SECRET ?? '',
+    mongoURL: process.env.MONGODB_URI ?? '',
     mongoOptions: {
       dbName: 'payload'
     },
@@ -29,3 +31,6 @@ const start = async () => {
 }
 
 start()
+  .catch((err) => {
+    throw err
+  })
