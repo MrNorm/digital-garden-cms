@@ -12,17 +12,20 @@ const Projects: CollectionConfig = {
   fields: [
     {
       name: 'title',
-      type: 'text'
+      type: 'text',
+      required: true
     },
     {
       name: 'slug',
       type: 'text',
-      unique: true
+      unique: true,
+      required: true
     },
     {
       name: 'author',
       type: 'relationship',
-      relationTo: 'users'
+      relationTo: 'users',
+      defaultValue: ({ user }: { user: User }) => user.id
     },
     {
       name: 'publishedDate',
