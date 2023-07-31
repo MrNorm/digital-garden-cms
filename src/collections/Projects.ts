@@ -15,6 +15,11 @@ const Projects: CollectionConfig = {
       type: 'text'
     },
     {
+      name: 'slug',
+      type: 'text',
+      unique: true
+    },
+    {
       name: 'author',
       type: 'relationship',
       relationTo: 'users'
