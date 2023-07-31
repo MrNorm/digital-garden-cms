@@ -1,9 +1,10 @@
+import type { User } from 'payload/generated-types'
 import { type CollectionConfig } from 'payload/types'
 
 const Projects: CollectionConfig = {
   slug: 'projects',
   admin: {
-    defaultColumns: ['title', 'author', 'category', 'tags', 'status'],
+    defaultColumns: ['title', 'slug', 'author', 'category', 'tags', 'status'],
     useAsTitle: 'title'
   },
   access: {
